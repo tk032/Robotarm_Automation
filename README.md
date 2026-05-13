@@ -1,57 +1,74 @@
-# Introduction
+# Robotarm Automation
 
-본 프로젝트는 한동대학교 Industrial AI and Automation (IAIA) 수업에서 진행한 프로젝트 중 INDY 10 로봇팔을 활용하여 진행한 프로젝트 입니다.
+## 프로젝트 개요
 
+한동대학교 Industrial AI and Automation (IAIA) 수업에서 진행한 팀 프로젝트로,
+INDY 10 산업용 로봇팔과 YOLOv5 객체 인식을 결합하여 신발을 자동으로 분류 및 보관하는 시스템입니다.
 
+- **Subject** : Automated shoes organizing system implementation
+- **Date** : Spring semester, 2023
+- **Instructor** : Prof. Young-Keun Kim
+- **Robot** : INDY 10
+- **OS** : Ubuntu 20.04
 
-프로젝트 관련 사항은 다음과 같습니다.
+## Demo
 
-@ Subject : Automated shoes organizing system implementation
+https://github.com/user-attachments/assets/fd15c0b4-6c97-4642-a6bc-30854a885138
 
-@ Date : Spring semester, 2023
+---
 
-@ Instructor : prof.Young-Keun Kim
+## 시스템 구조
 
-@ Robot : INDY 10
+```
+카메라 입력
+    │
+    ▼
+YOLOv5 Detection Node (yolov5_ros.py)
+    │  ROS Topic: shoeFlag / modeSelect / taskfinish
+    ▼
+Robot Control Node (projectRobotactual.py)
+    │  Serial
+    ▼
+Arduino (Display)      INDY 10 Robot Arm
+```
 
-@ Operating system : Ubuntu 20.04 version
+카메라로 신발을 인식하고, ROS 토픽을 통해 로봇 제어 노드와 통신하여 자동으로 보관/반출 작업을 수행합니다.
 
-@ demo video : [click here to view](https://www.youtube.com/watch?v=Pj22cOBuSP4)
+---
 
+## 담당 역할
 
+- **YOLOv5 모델 개발** : 신발 객체 인식 커스텀 모델 학습 및 ROS 노드 구현 (`yolov5_ros.py`)
+- **로봇-카메라 통신 연동** : YOLOv5 검출 결과를 ROS 토픽으로 로봇 제어 노드에 전달하는 인터페이스 설계 (`projectRobotactual.py`)
 
-# Contents
+---
 
-* Code files : [click here to view](https://github.com/HanMinung/Robotarm_Automation/tree/main/source)
+## 기술 스택
 
-  
+![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
+![YOLOv5](https://img.shields.io/badge/YOLOv5-00CCCC?style=for-the-badge)
+![ROS](https://img.shields.io/badge/ROS-22314E?style=for-the-badge&logo=ros&logoColor=white)
+![Arduino](https://img.shields.io/badge/Arduino-00979D?style=for-the-badge&logo=arduino&logoColor=white)
+![Linux](https://img.shields.io/badge/Linux-FCC624?style=for-the-badge&logo=linux&logoColor=black)
+![PyTorch](https://img.shields.io/badge/PyTorch-EE4C2C?style=for-the-badge&logo=pytorch&logoColor=white)
 
-  * python main code : main files to run project software
+---
 
-    
+## 프로젝트 구성
 
-  * python deep learning code : code for object detection
+- `source/` : 소스 코드
+  - `yolov5_ros.py` : YOLOv5 ROS 검출 노드
+  - `projectRobotactual.py` : 로봇 제어 및 카메라 통신 노드
+  - `projectFunctions.py` : 공통 유틸리티 함수
+  - `projectjointDef.py` : 로봇 관절 경로 정의
+  - `arduino code/arduinoDisplay.ino` : 아두이노 디스플레이 코드
+- `md files/` : 프로젝트 설명 문서 (설치 매뉴얼, 딥러닝 설정 가이드)
+- `hardware file/` : CAD 파일
+- `presentation file/` : 발표 자료
+- `demo video/` : 시연 영상
 
-    
+---
 
-  * arduino code : for reference (embedded in the uno board)
+## 참고
 
-    
-
-* md files for instruction
-
-  
-
-  * code, hardware, software, overall description : [click here to view](https://github.com/HanMinung/Robotarm_Automation/blob/main/md%20files/project%20description.md)
-
-    
-
-  * project manual : [click here to view](https://github.com/HanMinung/Robotarm_Automation/blob/main/md%20files/project%20manual.md)
-
-    
-
-  * deep learning setting manual : [click here to view](https://github.com/HanMinung/Robotarm_Automation/blob/main/md%20files/project%20deep%20learning%20manual.md)
-
-
-
-* presentation file : [click here to view](https://github.com/HanMinung/Robotarm_Automation/blob/main/presentation%20file/IAIA_project%232_shoebotTEAM.pptx)
+- 원본 팀 레포지토리 : [HanMinung/Robotarm_Automation](https://github.com/HanMinung/Robotarm_Automation)
